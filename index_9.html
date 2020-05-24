@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+    <ul>
+    <li><input type="checkbox" data-id=1><span>I am first in line</span></li>
+    <li><input type="checkbox" data-id=2><span>I am second in line</span></li>
+    <li><input type="checkbox" data-id=3><span>I am third in line</span></li>
+    <li><input type="checkbox" data-id=4><span>I am fifth in line</span></li>
+    <li><input type="checkbox" data-id=5><span>I am sixth in line</span></li>
+    <li><input type="checkbox" data-id=6><span>I am seventh in line</span></li>
+    <li><input type="checkbox" data-id=7><span>I am eighth in line</span></li>
+    <li><input type="checkbox" data-id=8><span>I am nineth in line</span></li>
+    </ul>
+    <style>
+        li{
+            list-style: none;
+            margin-bottom: 10px;
+            
+        }
+        
+        span{
+            margin-left: 5px;
+            font-size: 20px;
+            font-family: sans-serif;
+        }
+        
+       
+    </style>
+    <script>
+    const checkBoxes = Array.from(document.querySelectorAll("input"));
+    
+        
+        checkBoxes.forEach(checkbox => {
+            checkbox.addEventListener("click", onCheck);
+          
+        });
+        
+     
+     
+        function onCheck(e){
+             if(e.shiftKey){
+
+     if(this.checked){
+               
+                var lastBoxIndex = this.dataset.id-1;
+                for(let x = lastBoxIndex; x>=1;x--){      
+                 if(checkBoxes[x-1].checked){
+                     var firstBoxIndex=checkBoxes[x-1].dataset.id;
+                     break;
+                 }
+                    
+                }
+         for(let z = firstBoxIndex; z<=lastBoxIndex;z++){
+                        checkBoxes[z-1].checked = true;
+                    }
+               }
+            }
+            }
+           
+      
+        
+                 
+           
+    
+    </script>
+</body>
+</html>
