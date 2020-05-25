@@ -2,36 +2,77 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Checkbox selector</title>
+  <title>HTML5 Canvas</title>
 </head>
 <body>
     <ul>
-    <li><input type="checkbox" data-id=1><span>I am first in line</span></li>
-    <li><input type="checkbox" data-id=2><span>I am second in line</span></li>
-    <li><input type="checkbox" data-id=3><span>I am third in line</span></li>
-    <li><input type="checkbox" data-id=4><span>I am fifth in line</span></li>
-    <li><input type="checkbox" data-id=5><span>I am sixth in line</span></li>
-    <li><input type="checkbox" data-id=6><span>I am seventh in line</span></li>
-    <li><input type="checkbox" data-id=7><span>I am eighth in line</span></li>
-    <li><input type="checkbox" data-id=8><span>I am nineth in line</span></li>
+    <li><input type="checkbox" data-id=1><p>I am first in line</p></li>
+    <li><input type="checkbox" data-id=2><p>I am second in line</p></li>
+    <li><input type="checkbox" data-id=3><p>I am third in line</p></li>
+    <li><input type="checkbox" data-id=4><p>I am fifth in line</p></li>
+    <li><input type="checkbox" data-id=5><p>I am sixth in line</p></li>
+    <li><input type="checkbox" data-id=6><p>I am seventh in line</p></li>
+    <li><input type="checkbox" data-id=7><p>I am eighth in line</p></li>
+    <li><input type="checkbox" data-id=8><p>I am nineth in line</p></li>
     </ul>
     <style>
-        li{
-            list-style: none;
-            margin-bottom: 10px;
-            
+        
+        body {
+            background: #FEC00D;
+            display: flex;
+            justify-content: center;
+ 
         }
         
-        span{
+        ul{
+            
+            background: white;
+            width: 400px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            margin: 50px auto;
+            padding: 0;
+        }
+        li{
+        
+            color:#595959;
+            list-style: none;
+            font-weight: 100;
+            border-bottom: solid 1px lightgray;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+        }
+        
+        input[type="checkbox"]{
+            margin: 10px;
+        }
+        
+        
+        
+        p {
+            padding: 20px;
+            margin: 0;
             margin-left: 5px;
             font-size: 20px;
             font-family: sans-serif;
+            border-left: solid 1px lightgray;
+            padding-left: 10px;
+            box-sizing: border-box;
+             
         }
         
+        .line {
+            text-decoration: line-through;
+        }
+        
+        input:checked + p{
+             text-decoration: line-through;
+        }
        
     </style>
     <script>
-    const checkBoxes = Array.from(document.querySelectorAll("input"));
+    const checkBoxes = document.querySelectorAll("input");
     
         
         checkBoxes.forEach(checkbox => {
@@ -39,28 +80,29 @@
           
         });
         
-     
-     
-        function onCheck(e){
-             if(e.shiftKey){
-
-     if(this.checked){
-               
-                var lastBoxIndex = this.dataset.id-1;
-                for(let x = lastBoxIndex; x>=1;x--){      
-                 if(checkBoxes[x-1].checked){
-                     var firstBoxIndex=checkBoxes[x-1].dataset.id;
-                     break;
-                 }
-                    
-                }
-         for(let z = firstBoxIndex; z<=lastBoxIndex;z++){
-                        checkBoxes[z-1].checked = true;
-                    }
-               }
+        let lastBox;
+        
+        function handleCheck(e){
+            
+        }
+   
+        function onCheck(e){    
+            
+            if(this.checked && e.shiftKey){
+         
+            let inBetween = false;
+            
+            checkBoxes.forEach(checkbox => {
+            if(checkbox === this || checkbox === lastBox){
+                inBetween = !inBetween;
+            }    
+             if(inBetween&&lastBox!==undefined){
+                 checkbox.checked = true;
+             }    
+            })
             }
-            }
-           
+              lastBox = this;
+        }
       
         
                  
